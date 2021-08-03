@@ -1,0 +1,757 @@
+[
+    {
+        "id": "3b4301e06e4f9203",
+        "type": "tab",
+        "label": "Поток 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "7344c57424db5206",
+        "type": "inject",
+        "z": "3b4301e06e4f9203",
+        "name": "Hello",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 90,
+        "y": 40,
+        "wires": [
+            [
+                "bac66f33afb91a80"
+            ]
+        ]
+    },
+    {
+        "id": "0d206bb37187d371",
+        "type": "debug",
+        "z": "3b4301e06e4f9203",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "bac66f33afb91a80",
+        "type": "http request",
+        "z": "3b4301e06e4f9203",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://api.telegram.org/bot1936989347:AAFKlfonOI96we1lYwU8Pe56denZSFazA1o/setWebhook?url=https://bcbb403430a9.ngrok.io/firstbot",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "basic",
+        "x": 300,
+        "y": 40,
+        "wires": [
+            [
+                "0d206bb37187d371"
+            ]
+        ]
+    },
+    {
+        "id": "4d8cd508fbbbdc9f",
+        "type": "http in",
+        "z": "3b4301e06e4f9203",
+        "name": "[POST] /firstbot",
+        "url": "/firstbot",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 100,
+        "y": 100,
+        "wires": [
+            [
+                "f3bbfe14269bab96",
+                "e2622d4538902afc",
+                "84dca8a63dbe8fff"
+            ]
+        ]
+    },
+    {
+        "id": "75913fad305efbda",
+        "type": "function",
+        "z": "3b4301e06e4f9203",
+        "name": "Hello",
+        "func": "msg.payload = {\n  \"chat_id\": msg.receiver,\n  \"text\": \"Hello!👋\\nI will help you find a TOP-3 rated movies📽\"\n  }\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
+        "y": 80,
+        "wires": [
+            [
+                "529c246ae655d530",
+                "530944b1c61a72ab"
+            ]
+        ]
+    },
+    {
+        "id": "529c246ae655d530",
+        "type": "http request",
+        "z": "3b4301e06e4f9203",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://api.telegram.org/bot1936989347:AAFKlfonOI96we1lYwU8Pe56denZSFazA1o/sendMessage",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "basic",
+        "x": 790,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f3bbfe14269bab96",
+        "type": "debug",
+        "z": "3b4301e06e4f9203",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 110,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "e2622d4538902afc",
+        "type": "http response",
+        "z": "3b4301e06e4f9203",
+        "name": "http (200)",
+        "statusCode": "200",
+        "headers": {},
+        "x": 120,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "530944b1c61a72ab",
+        "type": "http request",
+        "z": "3b4301e06e4f9203",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://api.themoviedb.org/3/discover/movie?api_key=4e3f3012d0466be01a94fb02f424c945&sort_by=vote_average.desc&vote_count.gte=50",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "basic",
+        "x": 790,
+        "y": 120,
+        "wires": [
+            [
+                "19086bc912cdfdb7"
+            ]
+        ]
+    },
+    {
+        "id": "19086bc912cdfdb7",
+        "type": "json",
+        "z": "3b4301e06e4f9203",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 990,
+        "y": 160,
+        "wires": [
+            [
+                "72a186963c3aeddb"
+            ]
+        ]
+    },
+    {
+        "id": "1d13e06cb6b198eb",
+        "type": "http request",
+        "z": "3b4301e06e4f9203",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://api.telegram.org/bot1936989347:AAFKlfonOI96we1lYwU8Pe56denZSFazA1o/sendMessage",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 1970,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "84dca8a63dbe8fff",
+        "type": "change",
+        "z": "3b4301e06e4f9203",
+        "name": "receiver",
+        "rules": [
+            {
+                "t": "set",
+                "p": "receiver",
+                "pt": "msg",
+                "to": "payload.message.from.id",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 280,
+        "y": 100,
+        "wires": [
+            [
+                "8d32a6c423b7f4fb"
+            ]
+        ]
+    },
+    {
+        "id": "8d32a6c423b7f4fb",
+        "type": "switch",
+        "z": "3b4301e06e4f9203",
+        "name": "First_msg",
+        "property": "payload.message.text",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "/start",
+                "vt": "str"
+            },
+            {
+                "t": "neq",
+                "v": "/start",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 420,
+        "y": 100,
+        "wires": [
+            [
+                "75913fad305efbda"
+            ],
+            [
+                "b68cceb4a7337e02"
+            ]
+        ]
+    },
+    {
+        "id": "038c42e66d5138fd",
+        "type": "function",
+        "z": "3b4301e06e4f9203",
+        "name": "Img",
+        "func": "msg.payload = {\n    \"photo\":\"https://image.tmdb.org/t/p/original\"+msg.payload.poster_path,\n    \"chat_id\": msg.receiver\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1590,
+        "y": 220,
+        "wires": [
+            [
+                "a1ee53070f96c7bd"
+            ]
+        ]
+    },
+    {
+        "id": "a1ee53070f96c7bd",
+        "type": "http request",
+        "z": "3b4301e06e4f9203",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://api.telegram.org/bot1936989347:AAFKlfonOI96we1lYwU8Pe56denZSFazA1o/sendPhoto",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 1770,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a5d62a98ec9cdccb",
+        "type": "function",
+        "z": "3b4301e06e4f9203",
+        "name": "Error_send",
+        "func": "msg.payload = {\n  \"chat_id\": msg.receiver,\n  \"text\": \"I don`t undestand you :(\\nPlease use button or send /start\"\n  }\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 280,
+        "wires": [
+            [
+                "529c246ae655d530"
+            ]
+        ]
+    },
+    {
+        "id": "9597710943790330",
+        "type": "function",
+        "z": "3b4301e06e4f9203",
+        "name": "Top3",
+        "func": "msg.payload = {\n  \"text\":\"🔝1⃣\\n♦Title♦: \"+msg.payload.results[0].title+\n    \"\\n\\nOverview📄: \"+msg.payload.results[0].overview+\n    \"\\n\\n#⃣2⃣\\n♦Title♦: \"+msg.payload.results[1].title+\n    \"\\n\\nOverview📄: \"+msg.payload.results[1].overview+\n    \"\\n\\n#⃣3⃣\\n♦Title♦: \"+msg.payload.results[2].title+\n    \"\\n\\nOverview📄: \"+msg.payload.results[2].overview+\n    \"\\n\\nChoose to see more information⬇:\",\n    \"reply_markup\": {\n            \"keyboard\": [['1'],['2'], ['3']],\n                  'resize_keyboard' : true, \n      'one_time_keyboard' : true\n        },\n    \"chat_id\": msg.receiver\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1310,
+        "y": 140,
+        "wires": [
+            [
+                "529c246ae655d530"
+            ]
+        ]
+    },
+    {
+        "id": "b68cceb4a7337e02",
+        "type": "switch",
+        "z": "3b4301e06e4f9203",
+        "name": "MovieID",
+        "property": "payload.message.text",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Back",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "3",
+                "vt": "num"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 5,
+        "x": 280,
+        "y": 180,
+        "wires": [
+            [
+                "530944b1c61a72ab"
+            ],
+            [
+                "5c6fbca611c68ebf"
+            ],
+            [
+                "0a0d22f366f9c946"
+            ],
+            [
+                "06aa442d692c449d"
+            ],
+            [
+                "a5d62a98ec9cdccb"
+            ]
+        ]
+    },
+    {
+        "id": "5c6fbca611c68ebf",
+        "type": "change",
+        "z": "3b4301e06e4f9203",
+        "name": "movie1",
+        "rules": [
+            {
+                "t": "set",
+                "p": "movie",
+                "pt": "msg",
+                "to": "1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 520,
+        "y": 160,
+        "wires": [
+            [
+                "530944b1c61a72ab"
+            ]
+        ]
+    },
+    {
+        "id": "06aa442d692c449d",
+        "type": "change",
+        "z": "3b4301e06e4f9203",
+        "name": "movie3",
+        "rules": [
+            {
+                "t": "set",
+                "p": "movie",
+                "pt": "msg",
+                "to": "3",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 520,
+        "y": 240,
+        "wires": [
+            [
+                "530944b1c61a72ab"
+            ]
+        ]
+    },
+    {
+        "id": "0a0d22f366f9c946",
+        "type": "change",
+        "z": "3b4301e06e4f9203",
+        "name": "movie2",
+        "rules": [
+            {
+                "t": "set",
+                "p": "movie",
+                "pt": "msg",
+                "to": "2",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 520,
+        "y": 200,
+        "wires": [
+            [
+                "530944b1c61a72ab"
+            ]
+        ]
+    },
+    {
+        "id": "72a186963c3aeddb",
+        "type": "switch",
+        "z": "3b4301e06e4f9203",
+        "name": "",
+        "property": "movie",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "btwn",
+                "v": "0",
+                "vt": "num",
+                "v2": "4",
+                "v2t": "num"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1150,
+        "y": 160,
+        "wires": [
+            [
+                "d71b2f7f71932a9e"
+            ],
+            [
+                "9597710943790330"
+            ]
+        ]
+    },
+    {
+        "id": "d71b2f7f71932a9e",
+        "type": "function",
+        "z": "3b4301e06e4f9203",
+        "name": "Detail_movie",
+        "func": "if (msg.movie == 1){\n    msg.method = \"GET\"\n    msg.url=\"https://api.themoviedb.org/3/movie/\"+msg.payload.results[0].id+\"?api_key=4e3f3012d0466be01a94fb02f424c945\"\n}\nelse if (msg.movie ==2){\n    msg.method = \"GET\"\nmsg.url=\"https://api.themoviedb.org/3/movie/\"+msg.payload.results[1].id+\"?api_key=4e3f3012d0466be01a94fb02f424c945\"\n}\nelse {\n    msg.method = \"GET\"\n    msg.url=\"https://api.themoviedb.org/3/movie/\"+msg.payload.results[2].id+\"?api_key=4e3f3012d0466be01a94fb02f424c945\"\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 220,
+        "wires": [
+            [
+                "d22b3ff6b18c22c4",
+                "5b0a9f192152231b"
+            ]
+        ]
+    },
+    {
+        "id": "d22b3ff6b18c22c4",
+        "type": "http request",
+        "z": "3b4301e06e4f9203",
+        "name": "",
+        "method": "use",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 950,
+        "y": 220,
+        "wires": [
+            [
+                "7c3d203f9080ab56"
+            ]
+        ]
+    },
+    {
+        "id": "7c3d203f9080ab56",
+        "type": "json",
+        "z": "3b4301e06e4f9203",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1110,
+        "y": 220,
+        "wires": [
+            [
+                "316a84e5f7f1bb56"
+            ]
+        ]
+    },
+    {
+        "id": "316a84e5f7f1bb56",
+        "type": "change",
+        "z": "3b4301e06e4f9203",
+        "name": "clear url",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "url",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "method",
+                "pt": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Description",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1260,
+        "y": 220,
+        "wires": [
+            [
+                "038c42e66d5138fd",
+                "7a079ede38575b7b"
+            ]
+        ]
+    },
+    {
+        "id": "5b0a9f192152231b",
+        "type": "function",
+        "z": "3b4301e06e4f9203",
+        "name": "Cast",
+        "func": "if (msg.movie == 1){\n    msg.method = \"GET\"\n    msg.url=\"https://api.themoviedb.org/3/movie/\"+msg.payload.results[0].id+\"/credits\"+\"?api_key=4e3f3012d0466be01a94fb02f424c945\"\n}\nelse if (msg.movie ==2){\n    msg.method = \"GET\"\nmsg.url=\"https://api.themoviedb.org/3/movie/\"+msg.payload.results[1].id+\"/credits\"+\"?api_key=4e3f3012d0466be01a94fb02f424c945\"\n}\nelse {\n    msg.method = \"GET\"\n    msg.url=\"https://api.themoviedb.org/3/movie/\"+msg.payload.results[2].id+\"/credits\"+\"?api_key=4e3f3012d0466be01a94fb02f424c945\"\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 930,
+        "y": 300,
+        "wires": [
+            [
+                "61636a3405d62b60"
+            ]
+        ]
+    },
+    {
+        "id": "61636a3405d62b60",
+        "type": "http request",
+        "z": "3b4301e06e4f9203",
+        "name": "",
+        "method": "use",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 1110,
+        "y": 300,
+        "wires": [
+            [
+                "e3af19052da67af4"
+            ]
+        ]
+    },
+    {
+        "id": "e3af19052da67af4",
+        "type": "json",
+        "z": "3b4301e06e4f9203",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1250,
+        "y": 300,
+        "wires": [
+            [
+                "56afc46cc70a9a21"
+            ]
+        ]
+    },
+    {
+        "id": "7a079ede38575b7b",
+        "type": "join",
+        "z": "3b4301e06e4f9203",
+        "name": "Overview",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "1",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 1600,
+        "y": 280,
+        "wires": [
+            [
+                "f4464b66158e8c04"
+            ]
+        ]
+    },
+    {
+        "id": "56afc46cc70a9a21",
+        "type": "change",
+        "z": "3b4301e06e4f9203",
+        "name": "clear url",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "url",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "method",
+                "pt": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Cast",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1400,
+        "y": 300,
+        "wires": [
+            [
+                "7a079ede38575b7b"
+            ]
+        ]
+    },
+    {
+        "id": "f4464b66158e8c04",
+        "type": "function",
+        "z": "3b4301e06e4f9203",
+        "name": "Msg",
+        "func": "var cast = msg.cast;\nmsg.cast = [];\ntry {\nfor (let i = 0; i < msg.payload[0].cast.length; i++) {\n  msg.cast.push(\" \"+msg.payload[0].cast[i].name.toString())\n}\n\nmsg.payload = {\n   \"text\":\"♦Title♦: \"+msg.payload[1].title+\n   \"\\n\\nCast🤩: \"+msg.cast+\n   \"\\nGenres🎞: \"+msg.payload[1].genres[0].name+\n   \"\\nDuration▶: \"+msg.payload[1].runtime+\" min\"+\n    \"\\nProduction country📽: \"+msg.payload[1].production_countries[0].name+\n    \"\\n\\nOverview📄: \"+msg.payload[1].overview+\n    \"\\n\\nRate🌟: \"+parseFloat(msg.payload[1].vote_average).toFixed(1)+\n    \"\\nPopularity📈: \"+parseFloat(msg.payload[1].popularity).toFixed(2)+\n    \"\\nRelease date🗓: \"+msg.payload[1].release_date,\n        \"reply_markup\": {\n            \"keyboard\": [['Back']],\n                  'resize_keyboard' : true, \n      'one_time_keyboard' : true\n        },\n    \"chat_id\": msg.receiver\n}}\ncatch (e) {\n  for (let i = 0; i < msg.payload[1].cast.length; i++) {\n  msg.cast.push(\" \"+msg.payload[1].cast[i].name.toString())\n}\n\nmsg.payload = {\n   \"text\":\"♦Title♦: \"+msg.payload[0].title+\n   \"\\n\\nCast🤩: \"+msg.cast+\n   \"\\nGenres🎞: \"+msg.payload[0].genres[0].name+\n   \"\\nDuration▶: \"+msg.payload[0].runtime+\" min\"+\n    \"\\nProduction country📽: \"+msg.payload[0].production_countries[0].name+\n    \"\\n\\nOverview📄: \"+msg.payload[0].overview+\n    \"\\n\\nRate🌟: \"+parseFloat(msg.payload[0].vote_average).toFixed(1)+\n    \"\\nPopularity📈: \"+parseFloat(msg.payload[0].popularity).toFixed(2)+\n    \"\\nRelease date🗓: \"+msg.payload[0].release_date,\n        \"reply_markup\": {\n            \"keyboard\": [['Back']],\n                  'resize_keyboard' : true, \n      'one_time_keyboard' : true\n        },\n    \"chat_id\": msg.receiver\n}  \n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1770,
+        "y": 280,
+        "wires": [
+            [
+                "1d13e06cb6b198eb"
+            ]
+        ]
+    }
+]
